@@ -1,4 +1,3 @@
-import React from 'react';
 import CountUpModule from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import { Users, BookOpen, Heart, Building2 } from 'lucide-react';
@@ -6,7 +5,7 @@ import { Users, BookOpen, Heart, Building2 } from 'lucide-react';
 // Handle ESM/CJS interop for react-countup
 const CountUp = CountUpModule.default || CountUpModule;
 
-export default function Stats({ lang, t }) {
+export default function Stats({ lang }) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,

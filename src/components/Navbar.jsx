@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Globe, Menu, X, Heart } from 'lucide-react';
 
 export default function Navbar({ lang, setLang, t, currentView, setCurrentView }) {

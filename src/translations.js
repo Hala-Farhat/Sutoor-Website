@@ -8,7 +8,6 @@ export const translations = {
       gallery: "Impact Gallery",
       transparency: "Transparency",
       partnership: "Partnership",
-      testimonials: "Testimonials",
       donate: "Donate Now",
     },
     hero: {
@@ -126,16 +125,24 @@ export const translations = {
     donation: {
       title: "Support Education in Gaza",
       subtitle: "Choose your country to view the available local transfer methods. Every dollar provides pages of education.",
+      gofundmeBadge: "Donations Paused",
+      gofundmeTitle: "We Continue — Despite the Pause",
+      gofundmeBody1: "For a full year, our GoFundMe campaign raised over €26,000 from 237 donors to print and deliver study materials in Gaza. Due to circumstances beyond our control, the campaign was completely suspended — as shown in the screenshot below.",
+      gofundmeBody2: "That did not stop us. We were forced to switch to direct bank transfers and digital wallets — a harder, more tedious path for donors, and we know that.",
+      gofundmeBody3: "But in the balance of your good deeds and patience, every extra step brings another student closer to a new page of learning. Thank you to everyone who stays with us despite the difficulty.",
+      gofundmeCaption: "Screenshot from our GoFundMe page — donations paused",
+      gofundmeRaised: "€26,216 raised of €35K",
+      gofundmeDonors: "237 donors",
       noticeTitle: "⚠️ Critical Notice",
-      noticeBody: "Please upload a screenshot or photo of the transfer receipt after payment. Otherwise, we cannot verify or identify the transfer details.",
+      noticeBody: "Please upload a screenshot or photo of the transfer receipt after payment. Do not write transaction notes and always include the sender name so we can verify your transfer.",
       formTitle: "Submit Transfer Receipt",
-      nameLabel: "Your Name (Optional)",
+      nameLabel: "Your Name",
       namePlaceholder: "e.g., Sarah Smith",
-      messageLabel: "Words of Support (Optional)",
-      messagePlaceholder: "Write a message to the students in Gaza...",
-      amountLabel: "Transfer Amount (Optional)",
+      messageLabel: "Note",
+      messagePlaceholder: "Add a note if you'd like...",
+      amountLabel: "Transfer Amount",
       amountPlaceholder: "e.g., $50, 100 QAR, 500 MAD",
-      fileLabel: "Drag & drop your receipt image here, or click to browse",
+      fileLabel: "Drag & drop your receipt (image, video, or PDF), or click to browse — max 50MB",
       submitBtn: "Confirm Donation Receipt",
       whatsappBtn: "Send Receipt via WhatsApp",
       successTitle: "Donation Submitted Successfully!",
@@ -146,8 +153,11 @@ export const translations = {
       methods: {
         morocco: "Morocco",
         egypt: "Egypt",
+        uae: "UAE",
         qatar: "Qatar",
         jordan: "Jordan",
+        europe: "European Account",
+        tunisia: "Tunisia",
         algeria: "Algeria",
         oman: "Oman",
         yemen: "Yemen",
@@ -155,6 +165,7 @@ export const translations = {
         syria: "Syria",
         paypal: "PayPal / Cards",
         binance: "USDT / Binance",
+        palestine: "Palestine",
         bank: "Bank Transfer",
       },
       fields: {
@@ -213,32 +224,6 @@ export const translations = {
       desc2: "Partners receive comprehensive reporting, media visibility on campaign materials, and direct field verification of the impact of their funding.",
       proposalBtn: "Download Partnership Proposal (PDF)"
     },
-    testimonials: {
-      title: "Voices from the Ground",
-      subtitle: "Real stories of hope and learning from our students and families in Gaza.",
-      list: [
-        {
-          quote: "I was studying from my mother's small broken screen. My eyes used to hurt. When Sutoor printed my science and math booklets, I felt like I went back to a real school.",
-          author: "Layla, 12 years old",
-          role: "Student in Deir al-Balah"
-        },
-        {
-          quote: "With five children in tents, printing even a single page was impossible due to the crazy paper costs. Sutoor took that massive burden off our family.",
-          author: "Um Ahmed",
-          role: "Parent of 5 children"
-        },
-        {
-          quote: "The joy in the children's eyes during our Quran circles and reading sessions gives us the energy to teach inside the tents every day despite everything.",
-          author: "Teacher Mahmoud",
-          role: "Volunteer Quran Educator"
-        },
-        {
-          quote: "I lost my school, but with Sutoor's study booklets, I am studying for my high school exams. They gave me hope that my dream is still alive.",
-          author: "Yousef, 18 years old",
-          role: "Tawjihi Student"
-        }
-      ]
-    },
     footer: {
       tagline: "Supporting the continuation of education in Gaza through printing, learning, and resilience.",
       contactUs: "Contact Us",
@@ -256,7 +241,6 @@ export const translations = {
       gallery: "معرض الأثر",
       transparency: "الشفافية",
       partnership: "الشراكة",
-      testimonials: "قالوا عنا",
       donate: "تبرع الآن",
     },
     hero: {
@@ -374,16 +358,24 @@ export const translations = {
     donation: {
       title: "ادعم التعليم في غزة",
       subtitle: "اختر بلدك لعرض طرق التحويل المحلية المتاحة. كل تبرع يسهم في طباعة صفحات دراسية جديدة وإضاءة مستقبل طالب.",
+      gofundmeBadge: "التبرعات متوقفة",
+      gofundmeTitle: "رغم الإيقاف.. نستمر",
+      gofundmeBody1: "على مدار عام كامل، جمعت حملة GoFundMe الخاصة بمبادرة سطور أكثر من 26 ألف يورو من 237 متبرعاً لتغطية طباعة وتوزيع الكتب والملازم في غزة. لكن بسبب ظروف خارجة عن إرادتنا، تم إيقاف الحملة تماماً — كما يظهر في الصورة أدناه.",
+      gofundmeBody2: "لم يوقفنا ذلك. أُجبرنا على التحويل المباشر عبر الحسابات البنكية والمحافظ الإلكترونية — طريقة أصعب وأكثر تعباً على المتبرع، ونحن نعرف ذلك جيداً.",
+      gofundmeBody3: "لكن بميزان حسناتكم وصبركم، كل خطوة إضافية تقرب طالباً آخر من ورقة دراسية جديدة. شكراً لمن يكمل الرحلة معنا رغم الصعوبة.",
+      gofundmeCaption: "لقطة شاشة من صفحة GoFundMe — التبرعات متوقفة",
+      gofundmeRaised: "€26,216 من أصل €35K",
+      gofundmeDonors: "237 متبرعاً",
       noticeTitle: "⚠️ تنبيه هام جداً",
-      noticeBody: "يرجى رفع لقطة شاشة أو صورة لوصل التحويل بعد إتمام العملية. بدون الوصل، لن نتمكن من تحديد وتأكيد تبرعكم نظراً لطبيعة الحسابات الوسيطة.",
+      noticeBody: "يرجى رفع لقطة شاشة أو صورة لوصل التحويل بعد إتمام العملية. يمنع كتابة أي ملاحظات بشكل مطلق، ويجب إرسال اسم المرسل مع كل حركة لضمان تأكيد التبرع.",
       formTitle: "إرسال إشعار التحويل",
-      nameLabel: "الاسم (اختياري)",
+      nameLabel: "الاسم",
       namePlaceholder: "مثال: أحمد محمد",
-      messageLabel: "رسالة دعم وتشجيع (اختياري)",
-      messagePlaceholder: "اكتب كلمة طيبة لطلاب غزة...",
-      amountLabel: "قيمة التحويل (اختياري)",
+      messageLabel: "ملاحظة",
+      messagePlaceholder: "اكتب ملاحظة إن رغبت...",
+      amountLabel: "قيمة التحويل",
       amountPlaceholder: "مثال: 50 دولار، 100 ريال قطري، 500 درهم مغربي",
-      fileLabel: "اسحب وأفلت صورة الوصل هنا، أو انقر للاختيار من جهازك",
+      fileLabel: "اسحب وأفلت ملف الوصل (صورة، فيديو، أو PDF) — حد أقصى 50 ميجا",
       submitBtn: "تأكيد إشعار التبرع",
       whatsappBtn: "إرسال الوصل عبر واتساب",
       successTitle: "تم تسجيل إشعار التبرع بنجاح!",
@@ -394,8 +386,11 @@ export const translations = {
       methods: {
         morocco: "المغرب",
         egypt: "مصر",
+        uae: "الإمارات",
         qatar: "قطر",
         jordan: "الأردن",
+        europe: "الحساب الأوروبي",
+        tunisia: "تونس",
         algeria: "الجزائر",
         oman: "سلطنة عمان",
         yemen: "اليمن",
@@ -403,6 +398,7 @@ export const translations = {
         syria: "سوريا",
         paypal: "باي بال / بطاقات",
         binance: "عملات رقمية / بايننس",
+        palestine: "فلسطين",
         bank: "حساب بنكي",
       },
       fields: {
@@ -460,32 +456,6 @@ export const translations = {
       desc1: "نرحب بالتعاون والشراكات مع المؤسسات الدولية والجمعيات الخيرية والجهات المانحة. نسعى من خلال هذه الشراكات لتأمين رعاية متكاملة للطلاب والمدارس الميدانية المؤقتة ومراكز الإيواء في غزة.",
       desc2: "يحصل الشركاء الداعمون على تقارير تفصيلية موثقة بالصور والفيديو، مع إبراز شعارهم في الحملات الإعلامية وتغطيات التوزيع الميداني.",
       proposalBtn: "تحميل مقترح الشراكة (PDF)"
-    },
-    testimonials: {
-      title: "أصوات من الميدان",
-      subtitle: "قصص حقيقية تروي شغف التعلم وعزيمة الصمود لأطفالنا في غزة.",
-      list: [
-        {
-          quote: "كنت أدرس من شاشة هاتف أمي المكسورة وكانت عيناي تؤلماني. عندما قامت مبادرة سطور بطباعة ملزمة العلوم والرياضيات لي، شعرت بأنني عدت لمدرسة حقيقية.",
-          author: "ليلى، 12 عاماً",
-          role: "طالبة في دير البلح"
-        },
-        {
-          quote: "لدي خمسة أطفال نزحنا بهم، وكان من المستحيل طباعة ملزمة واحدة بسبب أسعار الورق الجنونية. مبادرة سطور رفعت هذا الحمل الثقيل عن كاهل عائلتنا.",
-          author: "أم أحمد",
-          role: "والدة لخمسة طلاب"
-        },
-        {
-          quote: "البهجة التي أراها في عيون الأطفال خلال حلقات القرآن وحلقات القراءة تمنحنا الطاقة للوقوف والتعليم في الخيمة يومياً رغم كل الظروف القاسية.",
-          author: "المعلم محمود",
-          role: "محفّظ قرآن متطوع"
-        },
-        {
-          quote: "فقدت مدرستي كلياً، ولكن بفضل الملازم التي قدمتها سطور أستعد الآن لامتحانات الثانوية العامة (التوجيهي). أعادوا لي الأمل بأن حلمي لم ينتهِ بعد.",
-          author: "يوسف، 18 عاماً",
-          role: "طالب توجيهي"
-        }
-      ]
     },
     footer: {
       tagline: "دعم استمرارية التعليم في قطاع غزة من خلال الطباعة وحلقات العلم وتوثيق الأثر الميداني.",

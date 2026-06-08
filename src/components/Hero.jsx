@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
@@ -8,7 +8,7 @@ const slides = [
   "/assets/images/hero-slide-3.jpg"
 ];
 
-export default function Hero({ lang, t }) {
+export default function Hero({ lang, t, setCurrentView }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -17,6 +17,11 @@ export default function Hero({ lang, t }) {
     }, 6000);
     return () => clearInterval(timer);
   }, []);
+
+  const goToDonation = () => {
+    setCurrentView('donate');
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const scrollToSection = (id) => {
     const element = document.querySelector(id);
@@ -119,7 +124,7 @@ export default function Hero({ lang, t }) {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
           >
             <button
-              onClick={() => scrollToSection('#donate')}
+              onClick={goToDonation}
               className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary-green hover:bg-primary-green-light text-white px-8 py-4 rounded-full text-base font-bold shadow-xl shadow-primary-green/30 hover:shadow-primary-green-light/40 transition-all transform hover:-translate-y-1 cursor-pointer"
             >
               <Heart className="h-5 w-5 fill-current text-white" />

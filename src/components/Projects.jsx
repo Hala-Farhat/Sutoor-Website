@@ -1,8 +1,10 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, FolderOpen, ImageIcon, PlaySquare } from 'lucide-react';
 
 export default function Projects({ lang, t }) {
+  const childSponsorshipFallbackCover = "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675' viewBox='0 0 1200 675'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%231f6e8c'/%3E%3Cstop offset='100%25' stop-color='%2328a745'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='675' fill='url(%23g)'/%3E%3Ctext x='600' y='325' fill='white' font-family='Arial,sans-serif' font-size='52' font-weight='700' text-anchor='middle'%3EChild Sponsorship%3C/text%3E%3Ctext x='600' y='390' fill='white' font-family='Arial,sans-serif' font-size='42' font-weight='700' text-anchor='middle'%3E%D9%83%D9%81%D8%A7%D9%84%D8%A9%20%D8%A7%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84%3C/text%3E%3C/svg%3E";
+
   const scrollToGallery = (category) => {
     // Basic navigation to gallery and perhaps filtering (this needs integration with Gallery)
     window.location.hash = '#gallery';
@@ -36,6 +38,10 @@ export default function Projects({ lang, t }) {
         }
       }
     });
+
+    if (projectsMap["child-sponsorship"] && !projectsMap["child-sponsorship"].cover) {
+      projectsMap["child-sponsorship"].cover = childSponsorshipFallbackCover;
+    }
 
     return Object.values(projectsMap).filter(p => p.name !== 'logo.jpg' && p.name !== 'transform' && p.name !== 'student-books');
   }, []);

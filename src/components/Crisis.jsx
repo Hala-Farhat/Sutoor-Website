@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, TrendingUp, Info, HelpCircle } from 'lucide-react';
+import { AlertTriangle, TrendingUp, Info } from 'lucide-react';
 
 export default function Crisis({ lang, t }) {
   

@@ -1,0 +1,16 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // أوصال التبرع — رفع من السيرفر فقط (Admin SDK)، لا من المتصفح
+    match /donation-receipts/{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // صور وفيديو وPDF المعرض — قراءة عامة، الكتابة من Console/Admin فقط
+    match /gallery/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

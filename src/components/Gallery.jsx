@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Maximize2, PlayCircle, Folder } from 'lucide-react';
 
@@ -58,12 +58,16 @@ export default function Gallery({ lang }) {
     const handleKeyDown = (e) => {
       if (lightboxIndex === null) return;
       if (e.key === "Escape") setLightboxIndex(null);
-      if (e.key === "ArrowRight") handleNext();
-      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") {
+        setLightboxIndex((prev) => (prev + 1) % filteredData.length);
+      }
+      if (e.key === "ArrowLeft") {
+        setLightboxIndex((prev) => (prev - 1 + filteredData.length) % filteredData.length);
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex]);
+  }, [lightboxIndex, filteredData.length]);
 
   const handleNext = () => setLightboxIndex((prev) => (prev + 1) % filteredData.length);
   const handlePrev = () => setLightboxIndex((prev) => (prev - 1 + filteredData.length) % filteredData.length);

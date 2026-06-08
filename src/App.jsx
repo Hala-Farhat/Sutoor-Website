@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -57,8 +57,8 @@ export default function App() {
       
       {currentView === 'home' ? (
         <>
-          <Hero lang={lang} t={t} />
-          <Stats lang={lang} t={t} />
+          <Hero lang={lang} t={t} setCurrentView={setCurrentView} />
+          <Stats lang={lang} />
           <About lang={lang} t={t} />
           <Projects lang={lang} t={t} />
           <Crisis lang={lang} t={t} />

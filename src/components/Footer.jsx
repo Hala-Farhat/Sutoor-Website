@@ -1,4 +1,3 @@
-import React from 'react';
 import { Mail, Phone, Heart } from 'lucide-react';
 
 export default function Footer({ lang, t }) {

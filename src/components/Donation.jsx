@@ -1,29 +1,54 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, Check, ShieldCheck, AlertCircle, Smartphone, Download } from 'lucide-react';
+import { useState } from 'react';
+import { Copy, Check, AlertCircle, Smartphone, Download, Heart, PauseCircle } from 'lucide-react';
 import DonationForm from './DonationForm';
+
+function CountryFlag({ code, size = 'md', fallback }) {
+  const sizes = {
+    sm: 'w-9 h-6',
+    md: 'w-11 h-8',
+    lg: 'w-14 h-10',
+  };
+
+  if (!code) {
+    return (
+      <span className={`${sizes[size]} flex items-center justify-center text-2xl leading-none`}>
+        {fallback}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={`https://flagcdn.com/w80/${code}.png`}
+      srcSet={`https://flagcdn.com/w160/${code}.png 2x`}
+      alt=""
+      className={`${sizes[size]} object-cover rounded-md shadow-sm border border-gray-200/60`}
+      loading="lazy"
+    />
+  );
+}
 
 const donationMethods = [
   {
     id: "morocco",
-    flag: "🇲🇦",
+    countryCode: "ma",
     titleEn: "Morocco",
     titleAr: "المغرب",
     options: [
       {
         type: "bank",
-        bankNameEn: "Attijariwafa Bank",
-        bankNameAr: "التجاري وفا بنك",
+        bankNameEn: "Attijari Bank",
+        bankNameAr: "تجاري بنك",
         holder: "SOULAYMAN BENNAY",
         rib: "007720000757430040270789",
-        notesEn: "Account affiliated with Al-Ghoula Office. DO NOT WRITE ANY NOTES. DO NOT write 'Gaza' or 'Palestine' in the transaction.",
-        notesAr: "الحساب التابع لمكتب الغول. يمنع منعاً باتاً كتابة أي ملاحظات. يمنع كتابة 'غزة' أو 'فلسطين' لتجنب تجميد الحساب."
+        notesEn: "Account affiliated with Al-Ghoula Office. DO NOT write any notes. DO NOT write 'Gaza' or 'Palestine' in the transaction.",
+        notesAr: "الحساب التابع لمكتب الغول. ممنوع كتابة أي ملاحظات. ممنوع كتابة غزة أو فلسطين."
       }
     ]
   },
   {
     id: "egypt",
-    flag: "🇪🇬",
+    countryCode: "eg",
     titleEn: "Egypt",
     titleAr: "مصر",
     options: [
@@ -31,17 +56,46 @@ const donationMethods = [
         type: "wallet",
         walletNameEn: "Vodafone Cash",
         walletNameAr: "فودافون كاش",
-        numbers: ["01003883273", "01091190937"],
+        numbers: [
+          "01003883273",
+          "01091190937",
+          "01023304052",
+          "01025209011",
+          "01093247895",
+          "01002576503",
+          "01021771805",
+          "01097347511"
+        ],
         holderEn: "Nidal Al-Ghoula Office",
         holderAr: "مكتب نضال الغول",
-        notesEn: "Please send the transfer date and time with the receipt.",
-        notesAr: "يرجى إرسال تاريخ ووقت الإرسال مع الوصل لتسهيل المعاملة."
+        notesEn: "Please send the transfer date with the receipt to facilitate processing.",
+        notesAr: "الرجاء إرسال تاريخ الإرسال مع الوصل لتسهيل المعاملة."
+      }
+    ]
+  },
+  {
+    id: "uae",
+    countryCode: "ae",
+    titleEn: "UAE",
+    titleAr: "الإمارات",
+    options: [
+      {
+        type: "bank",
+        bankNameEn: "Abu Dhabi Commercial Bank PJSC",
+        bankNameAr: "بنك أبوظبي التجاري",
+        holder: "KAREM WAHED GOUDA MOUSA KHALIL",
+        accountNum: "14011814920001",
+        iban: "AE570030014011814920001",
+        swift: "ADCBAEAA",
+        currency: "AED",
+        notesEn: "DO NOT write any transaction notes.",
+        notesAr: "يمنع منعاً باتاً كتابة أي ملاحظات في التحويل."
       }
     ]
   },
   {
     id: "qatar",
-    flag: "🇶🇦",
+    countryCode: "qa",
     titleEn: "Qatar",
     titleAr: "قطر",
     options: [
@@ -61,7 +115,7 @@ const donationMethods = [
   },
   {
     id: "jordan",
-    flag: "🇯🇴",
+    countryCode: "jo",
     titleEn: "Jordan",
     titleAr: "الأردن",
     options: [
@@ -72,50 +126,84 @@ const donationMethods = [
         holderEn: "Nour El-Din Ibrahim Hussein",
         holderAr: "نور الدين ابراهيم حسين",
         cliq: "Dexter1998",
-        notesEn: "Instant CliQ transfer.",
-        notesAr: "تحويل فوري عبر نظام كليك."
+        notesEn: "Instant CliQ transfer. Do not write transfer notes.",
+        notesAr: "تحويل فوري عبر نظام كليك. يمنع كتابة الملاحظات."
+      },
+      {
+        type: "wallet",
+        walletNameEn: "CliQ / Safwa Bank — Al-Ghoula Office",
+        walletNameAr: "كليك (بنك صفوة) — مكتب الغول",
+        holderEn: "Ayman Al-Bahrat",
+        holderAr: "أيمن البحرات",
+        cliq: "Ayman56565",
+        notesEn: "Jordan account affiliated with Al-Ghoula Office. Do not write transfer notes.",
+        notesAr: "حساب الأردن الخاص بمكتب الغول. يمنع كتابة الملاحظات."
+      }
+    ]
+  },
+  {
+    id: "europe",
+    countryCode: "gr",
+    titleEn: "European Account",
+    titleAr: "الحساب الأوروبي",
+    options: [
+      {
+        type: "bank",
+        bankNameEn: "Piraeus Bank (Greece)",
+        bankNameAr: "بنك بيربوس (اليونان)",
+        holder: "IHSAN ALJAB",
+        holderAr: "احسان عصام الجعب",
+        iban: "GR8401727530005753111870671",
+        notesEn: "Do not write any notes in transfer. Sender name is required with every transaction.",
+        notesAr: "يمنع كتابة أي ملاحظات بشكل مطلق. يجب إرسال اسم المرسل مع كل حركة."
+      }
+    ]
+  },
+  {
+    id: "tunisia",
+    countryCode: "tn",
+    titleEn: "Tunisia",
+    titleAr: "تونس",
+    options: [
+      {
+        type: "baridimob",
+        walletNameEn: "Active Tunisia Card Accounts",
+        walletNameAr: "حسابات تونس الفعالة",
+        cardNumbers: [
+          { name: "عامر", nameEn: "Amer", card: "5359403636264428" },
+          { name: "محمد", nameEn: "Mohamed", card: "5359403634265815" },
+          { name: "زكية", nameEn: "Zakia", card: "5359403635876206" },
+          { name: "محمد", nameEn: "Mohamed", card: "5359407115680327" },
+          { name: "عامر", nameEn: "Amer", card: "5359401733885236" },
+          { name: "زكية", nameEn: "Zakia", card: "5359401735151199" },
+          { name: "سامية", nameEn: "Samia", card: "5359401729217774" }
+        ],
+        notesEn: "Priority follows the listed order (top to bottom). Do not write any notes.",
+        notesAr: "الأولوية حسب الترتيب من الأول إلى الأخير. يمنع كتابة الملاحظات."
       }
     ]
   },
   {
     id: "algeria",
-    flag: "🇩🇿",
+    countryCode: "dz",
     titleEn: "Algeria",
     titleAr: "الجزائر",
     options: [
       {
         type: "baridimob",
-        walletNameEn: "BaridiMob RIP",
-        walletNameAr: "حساب بريد موب RIP",
-        holderEn: "Abdeljalil Al-Ghoul",
+        walletNameEn: "BaridiMob — Al-Ghoula Office",
+        walletNameAr: "بريد موب — مكتب الغول",
+        holderEn: "Abdul Jalil Al-Ghoul",
         holderAr: "عبد الجليل الغول",
         rip: "00799999002545260806",
-        cardNumbers: [
-          { name: "Amer", card: "5359403636264428" },
-          { name: "Mohamed", card: "5359403634265815" },
-          { name: "Zakia", card: "5359403635876206" },
-          { name: "Mohamed", card: "5359407115680327" },
-          { name: "Amer", card: "5359401733885236" },
-          { name: "Zakia", card: "5359401735151199" },
-          { name: "Samia", card: "5359401729217774" }
-        ],
-        notesEn: "Gold Card numbers (Carte Edahabia) for BaridiMob.",
-        notesAr: "أرقام بطاقة بريد الذهبية للتحويل المباشر عبر تطبيق بريد موب."
-      },
-      {
-        type: "ccp",
-        walletNameEn: "CCP Post Account",
-        walletNameAr: "الحساب الجاري CCP",
-        holder: "Mohamed Lamine",
-        ccp: "17503000000358663519",
-        notesEn: "Special account for amounts up to 3000 DZD.",
-        notesAr: "حساب بريد خاص بالمبالغ لغاية 3000 دينار جزائري (بريد جاري)."
+        notesEn: "BaridiMob account affiliated with Al-Ghoula Office. Do not write any notes.",
+        notesAr: "حساب بريد موب التابع لمكتب الغول. يمنع كتابة أي ملاحظات."
       }
     ]
   },
   {
     id: "oman",
-    flag: "🇴🇲",
+    countryCode: "om",
     titleEn: "Oman",
     titleAr: "عمان",
     options: [
@@ -134,7 +222,7 @@ const donationMethods = [
   },
   {
     id: "yemen",
-    flag: "🇾🇪",
+    countryCode: "ye",
     titleEn: "Yemen",
     titleAr: "اليمن",
     options: [
@@ -168,7 +256,7 @@ const donationMethods = [
   },
   {
     id: "iraq",
-    flag: "🇮🇶",
+    countryCode: "iq",
     titleEn: "Iraq",
     titleAr: "العراق",
     options: [
@@ -184,7 +272,7 @@ const donationMethods = [
   },
   {
     id: "syria",
-    flag: "🇸🇾",
+    countryCode: "sy",
     titleEn: "Syria",
     titleAr: "سوريا",
     options: [
@@ -201,33 +289,56 @@ const donationMethods = [
   },
   {
     id: "paypal",
-    flag: "💳",
+    countryCode: "us",
     titleEn: "PayPal / Cards",
     titleAr: "باي بال والبطاقات",
     options: [
       {
         type: "paypal",
-        walletNameEn: "Primary PayPal & Visa/Mastercard",
-        walletNameAr: "حساب باي بال الأساسي والدفع بالبطاقات",
-        paypalLink: "https://paypal.me/IHSSANABURYALEH",
-        visaLink: "https://www.paypal.com/ncp/payment/8GALBJTYKFEVQ",
-        notesEn: "DO NOT write any transaction notes. Make sure to specify the sender's name.",
-        notesAr: "يمنع تماماً كتابة أي ملاحظات في باي بال. يرجى ذكر اسم المرسل في المراسلات."
+        walletNameEn: "Direct Link",
+        walletNameAr: "لينك مباشر",
+        paypalLink: "https://www.paypal.me/besbes94",
+        notesEn: "DO NOT write any transaction notes.",
+        notesAr: "يمنع منعاً باتاً كتابة أي ملاحظات."
       },
       {
         type: "paypal",
-        walletNameEn: "Alternative PayPal (Max $1000)",
-        walletNameAr: "حساب باي بال الاحتياطي (حد أقصى 1000$)",
-        paypalLink: "https://paypal.me/ammarw83",
-        email: "ammarwadi83@gmail.com",
-        notesEn: "Backup transfer method for amounts under $1000.",
-        notesAr: "حساب احتياطي مخصص للمبالغ الأقل من 1000 دولار أمريكي."
+        walletNameEn: "Donation Link",
+        walletNameAr: "لينك تبرعات",
+        paypalLink: "https://www.paypal.com/donate/?business=A5V9R7AQ3DL2C&no_recurring=0&currency_code=USD",
+        notesEn: "DO NOT write any transaction notes.",
+        notesAr: "يمنع منعاً باتاً كتابة أي ملاحظات."
+      },
+      {
+        type: "paypal",
+        walletNameEn: "Friend Account Only",
+        walletNameAr: "صديق حصراً فقط",
+        paypalLink: "https://paypal.me/Ghanaima",
+        notesEn: "Friends only. DO NOT write any transaction notes.",
+        notesAr: "للأصدقاء حصراً. يمنع كتابة أي ملاحظات."
+      },
+      {
+        type: "paypal",
+        walletNameEn: "Mohannad Alameer — Visa / Mastercard",
+        walletNameAr: "مهند الأمير — فيزا / ماستر",
+        visaLink: "https://www.paypal.com/ncp/payment/KRZEWYQ924QYL",
+        notesEn: "DO NOT write any transaction notes.",
+        notesAr: "يمنع منعاً باتاً كتابة أي ملاحظات."
+      },
+      {
+        type: "paypal",
+        walletNameEn: "Direct Link",
+        walletNameAr: "لينك مباشر",
+        paypalLink: "https://paypal.me/ALAMEERJO",
+        notesEn: "DO NOT write any transaction notes.",
+        notesAr: "يمنع منعاً باتاً كتابة أي ملاحظات."
       }
     ]
   },
   {
     id: "binance",
-    flag: "🪙",
+    countryCode: null,
+    flagFallback: "🪙",
     titleEn: "Binance (Crypto)",
     titleAr: "العملات الرقمية (USDT)",
     options: [
@@ -238,8 +349,26 @@ const donationMethods = [
         address: "TCQFwNrwF5nrJuyekEFaveWZdRViN7dP7w",
         binanceId: "1144340194",
         qrCode: "/assets/images/transform/USTD.jpeg",
-        notesEn: "Ensure you select TRC-20 network for USDT transfers. Binance Pay ID is also available.",
-        notesAr: "تأكد من اختيار شبكة TRC-20 عند تحويل USDT لتجنب خسارة الأموال. متاح أيضاً معرف بايننس."
+        notesEn: "Priority method as listed. Ensure you select TRC-20 network for USDT transfers.",
+        notesAr: "الأولوية حسب الترتيب من الأول إلى الأخير. تأكد من اختيار شبكة TRC-20 عند تحويل USDT."
+      }
+    ]
+  },
+  {
+    id: "palestine",
+    countryCode: "ps",
+    titleEn: "Palestine",
+    titleAr: "فلسطين",
+    options: [
+      {
+        type: "wallet",
+        walletNameEn: "Palestine Donation Number",
+        walletNameAr: "التبرع من فلسطين",
+        holder: "Hala Farhat",
+        holderAr: "هلا فرحات",
+        numbers: ["0594465910"],
+        notesEn: "Use this number for donations from Palestine.",
+        notesAr: "للتبرع من فلسطين عبر الرقم المخصص أعلاه."
       }
     ]
   }
@@ -289,6 +418,47 @@ export default function Donation({ lang, t }) {
           </p>
         </div>
 
+        {/* GoFundMe Paused — context for direct transfer methods */}
+        <div className="max-w-5xl mx-auto mb-12 bg-white border border-gray-100 rounded-3xl shadow-xl overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+            <div className="relative bg-gray-50 p-6 sm:p-8 flex flex-col justify-center">
+              <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 px-3 py-1.5 rounded-full text-xs font-bold w-fit mb-4">
+                <PauseCircle className="h-3.5 w-3.5" />
+                <span>{t.donation.gofundmeBadge}</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-text-main leading-snug mb-4">
+                {t.donation.gofundmeTitle}
+              </h3>
+              <div className="space-y-3 text-sm text-text-muted leading-relaxed font-light">
+                <p>{t.donation.gofundmeBody1}</p>
+                <p>{t.donation.gofundmeBody2}</p>
+                <p className="text-primary-green font-medium">{t.donation.gofundmeBody3}</p>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-6">
+                <span className="inline-flex items-center gap-1.5 bg-primary-green/10 text-primary-green text-xs font-bold px-3 py-1.5 rounded-full">
+                  <Heart className="h-3.5 w-3.5 fill-current" />
+                  {t.donation.gofundmeRaised}
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-primary-blue/10 text-primary-blue text-xs font-bold px-3 py-1.5 rounded-full">
+                  {t.donation.gofundmeDonors}
+                </span>
+              </div>
+            </div>
+            <div className="relative p-4 sm:p-6 bg-gradient-to-br from-gray-100 to-gray-50 flex items-center justify-center">
+              <figure className="w-full">
+                <img
+                  src="/assets/images/gofundme-paused.png"
+                  alt={t.donation.gofundmeCaption}
+                  className="w-full rounded-2xl border border-gray-200 shadow-lg object-cover object-top"
+                />
+                <figcaption className="text-[11px] text-text-muted text-center mt-3 font-medium">
+                  {t.donation.gofundmeCaption}
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
         {/* Major Donation Notice */}
         <div className="max-w-4xl mx-auto mb-12 bg-red-50 border border-red-200 rounded-2xl p-5 flex items-start gap-4 shadow-sm">
           <AlertCircle className="h-6 w-6 text-red-500 flex-shrink-0 mt-0.5" />
@@ -320,7 +490,11 @@ export default function Donation({ lang, t }) {
                       : "bg-white border-gray-200 text-text-muted hover:border-primary-green/50"
                   }`}
                 >
-                  <span className="text-3xl leading-none">{method.flag}</span>
+                  <CountryFlag
+                    code={method.countryCode}
+                    size="sm"
+                    fallback={method.flagFallback}
+                  />
                   <span className="text-xs font-bold font-sans">
                     {lang === 'en' ? method.titleEn : method.titleAr}
                   </span>
@@ -332,7 +506,11 @@ export default function Donation({ lang, t }) {
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-100 shadow-xl min-h-[380px]">
               
               <div className="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
-                <span className="text-4xl leading-none">{activeCountryData.flag}</span>
+                <CountryFlag
+                  code={activeCountryData.countryCode}
+                  size="lg"
+                  fallback={activeCountryData.flagFallback}
+                />
                 <div>
                   <h3 className="text-xl font-bold text-text-main">
                     {lang === 'en' ? activeCountryData.titleEn : activeCountryData.titleAr}
@@ -363,17 +541,38 @@ export default function Donation({ lang, t }) {
                     <div className="grid grid-cols-1 gap-4 font-sans text-sm">
                       
                       {/* Beneficiary Name */}
-                      {opt.holder && (
+                      {(opt.holder || opt.holderEn) && (
                         <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
                           <div>
                             <span className="text-xs text-text-muted block">{t.donation.fields.holder}</span>
-                            <span className="text-sm font-semibold text-text-main">{opt.holder}</span>
+                            <span className="text-sm font-semibold text-text-main">
+                              {opt.holder || (lang === 'en' ? opt.holderEn : opt.holderAr)}
+                            </span>
+                            {opt.holderAr && opt.holder && (
+                              <span className="text-xs text-text-muted block mt-1">{opt.holderAr}</span>
+                            )}
                           </div>
                           <button
-                            onClick={() => handleCopy(opt.holder, `holder-${oIdx}`)}
+                            onClick={() => handleCopy(opt.holder || (lang === 'en' ? opt.holderEn : opt.holderAr), `holder-${oIdx}`)}
                             className="text-text-muted hover:text-primary-blue p-2"
                           >
                             {copiedKey === `holder-${oIdx}` ? <Check className="h-4 w-4 text-primary-green" /> : <Copy className="h-4 w-4" />}
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Currency */}
+                      {opt.currency && (
+                        <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                          <div>
+                            <span className="text-xs text-text-muted block">{lang === 'en' ? 'Currency' : 'العملة'}</span>
+                            <span className="text-sm font-semibold text-text-main font-mono">{opt.currency}</span>
+                          </div>
+                          <button
+                            onClick={() => handleCopy(opt.currency, `currency-${oIdx}`)}
+                            className="text-text-muted hover:text-primary-blue p-2"
+                          >
+                            {copiedKey === `currency-${oIdx}` ? <Check className="h-4 w-4 text-primary-green" /> : <Copy className="h-4 w-4" />}
                           </button>
                         </div>
                       )}
@@ -502,7 +701,9 @@ export default function Donation({ lang, t }) {
                             {opt.cardNumbers.map((cObj, cIdx) => (
                               <div key={cIdx} className="flex justify-between items-center bg-gray-50 p-2.5 rounded-lg border border-gray-100 text-xs">
                                 <div>
-                                  <span className="text-text-muted font-medium font-sans block">{cObj.name}</span>
+                                  <span className="text-text-muted font-medium font-sans block">
+                                    {lang === 'en' ? (cObj.nameEn || cObj.name) : cObj.name}
+                                  </span>
                                   <span className="font-semibold font-mono text-text-main">{cObj.card}</span>
                                 </div>
                                 <button
@@ -572,19 +773,20 @@ export default function Donation({ lang, t }) {
                       )}
 
                       {/* PayPal Payment Links */}
-                      {opt.paypalLink && (
+                      {(opt.paypalLink || opt.visaLink) && (
                         <div className="space-y-3">
                           <div className="flex flex-col sm:flex-row gap-3">
-                            
-                            <a
-                              href={opt.paypalLink}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="flex-1 flex items-center justify-center gap-2 bg-primary-blue hover:bg-primary-blue-light text-white p-3 rounded-xl shadow-md text-xs font-bold transition-all text-center"
-                            >
-                              <Smartphone className="h-4 w-4" />
-                              <span>PayPal Link</span>
-                            </a>
+                            {opt.paypalLink && (
+                              <a
+                                href={opt.paypalLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex-1 flex items-center justify-center gap-2 bg-primary-blue hover:bg-primary-blue-light text-white p-3 rounded-xl shadow-md text-xs font-bold transition-all text-center"
+                              >
+                                <Smartphone className="h-4 w-4" />
+                                <span>{lang === 'en' ? 'PayPal Link' : 'رابط باي بال'}</span>
+                              </a>
+                            )}
 
                             {opt.visaLink && (
                               <a
@@ -594,7 +796,7 @@ export default function Donation({ lang, t }) {
                                 className="flex-1 flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-xl shadow-md text-xs font-bold transition-all text-center"
                               >
                                 <Smartphone className="h-4 w-4" />
-                                <span>Visa / Mastercard Link</span>
+                                <span>{lang === 'en' ? 'Visa / Mastercard' : 'فيزا / ماستر'}</span>
                               </a>
                             )}
                           </div>

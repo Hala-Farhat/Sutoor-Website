@@ -7,12 +7,25 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# Dependencies — لا ترفع node_modules أبداً
+node_modules/
+functions/node_modules/
+
+# Build output
 dist
 dist-ssr
-*.local
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
 
-# Editor directories and files
+# Secrets & local env
+*.local
+.env
+.env.*
+!.env.example
+functions/.env
+
+# Editor
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -23,7 +36,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Media files (kept locally, not uploaded to GitHub)
+# Media — تبقى على جهازك و/أو Firebase Storage، مو GitHub
 *.jpg
 *.jpeg
 *.png
@@ -40,3 +53,6 @@ dist-ssr
 *.wmv
 *.pdf
 *.PDF
+
+# Site assets required in production (exceptions to media ignore above)
+!public/assets/images/gofundme-paused.png

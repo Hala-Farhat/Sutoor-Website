@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { FileSpreadsheet, FileInput, Users, CheckCircle, Video } from 'lucide-react';
 

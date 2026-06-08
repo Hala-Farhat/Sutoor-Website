@@ -1,17 +1,21 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
+/** Sutoor Initiative — etkan-f3ba3 — Hosting: https://sutoor.web.app — Storage: sutoor-storage */
 const firebaseConfig = {
-  apiKey: "AIzaSyDhuLQyrXVB8cXujIYlxx986qoGbfT5_BE",
-  authDomain: "sutoor-initiative.firebaseapp.com",
-  projectId: "sutoor-initiative",
-  storageBucket: "sutoor-initiative.firebasestorage.app",
-  messagingSenderId: "772388847935",
-  appId: "1:772388847935:web:d4981cb5e65c2f2717138a",
-  measurementId: "G-1ZFD7DXKR9"
+  apiKey: "AIzaSyDh2sNtgaTxIlLz9nasmzJZ9UXTJ6bmMGo",
+  authDomain: "etkan-f3ba3.firebaseapp.com",
+  projectId: "etkan-f3ba3",
+  storageBucket: "sutoor-storage",
+  messagingSenderId: "107080907120",
+  appId: "1:107080907120:web:5eafe826e1440f7321b7b5",
+  measurementId: "G-91WWW2EMMD",
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+
+isSupported().then((supported) => {
+  if (supported) getAnalytics(app);
+});
+
+export { app };
