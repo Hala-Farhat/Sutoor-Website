@@ -353,24 +353,6 @@ const donationMethods = [
         notesAr: "الأولوية حسب الترتيب من الأول إلى الأخير. تأكد من اختيار شبكة TRC-20 عند تحويل USDT."
       }
     ]
-  },
-  {
-    id: "palestine",
-    countryCode: "ps",
-    titleEn: "Palestine",
-    titleAr: "فلسطين",
-    options: [
-      {
-        type: "wallet",
-        walletNameEn: "Palestine Donation Number",
-        walletNameAr: "التبرع من فلسطين",
-        holder: "Hala Farhat",
-        holderAr: "هلا فرحات",
-        numbers: ["0594465910"],
-        notesEn: "Use this number for donations from Palestine.",
-        notesAr: "للتبرع من فلسطين عبر الرقم المخصص أعلاه."
-      }
-    ]
   }
 ];
 

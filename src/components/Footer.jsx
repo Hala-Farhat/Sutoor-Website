@@ -1,4 +1,4 @@
-import { Mail, Phone, Heart } from 'lucide-react';
+import { Mail, Heart } from 'lucide-react';
 
 export default function Footer({ lang, t }) {
   
@@ -138,17 +138,6 @@ export default function Footer({ lang, t }) {
                   className="text-warm-gray hover:text-warm-white font-mono break-all"
                 >
                   halafarhat446@gmail.com
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-4.5 w-4.5 text-primary-olive-light flex-shrink-0" />
-                <a 
-                  href="https://wa.me/972594465910" 
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-warm-gray hover:text-warm-white font-mono"
-                >
-                  +972 59-446-5910
                 </a>
               </li>
             </ul>

@@ -165,7 +165,6 @@ export const translations = {
         syria: "Syria",
         paypal: "PayPal / Cards",
         binance: "USDT / Binance",
-        palestine: "Palestine",
         bank: "Bank Transfer",
       },
       fields: {
@@ -398,7 +397,6 @@ export const translations = {
         syria: "سوريا",
         paypal: "باي بال / بطاقات",
         binance: "عملات رقمية / بايننس",
-        palestine: "فلسطين",
         bank: "حساب بنكي",
       },
       fields: {
